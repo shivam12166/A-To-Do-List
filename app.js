@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-var items = [];
-
+let items = [];
+let workItems = [];
 const app = express();
 app.use(express.static("public"))
 app.set("view engine", "ejs");
@@ -18,12 +18,26 @@ app.get("/", function(require, respond) {
 
     var day = today.toLocaleDateString("en-US", options);
 
-    respond.render("list", { kindOfDay: day, newitem: items });
+    respond.render("list", { listTitle: day, newitem: items });
 })
 app.post("/", function(require, respond) {
-    var item = require.body.newitem;
+    let item = require.body.newitem;
     items.push(item);
     respond.redirect("/");
+})
+
+app.get("/work", function(require, respond) {
+    respond.render("list", { listTitle: "Work List", newitem: workItems });
+})
+app.post("/work", function(require, respond) {
+    let item = respond.body.newitem;
+    if (respond.body.list === "work") {
+        workItems.push(item);
+        respond.redirect("/work");
+    } else {
+        items.push(item);
+        respond.redirect("/");
+    }
 })
 
 app.listen(3000, function() {

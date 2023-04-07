@@ -1,36 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("header"); -%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
-    <link rel="stylesheet" href="css/Style.css">
-</head>
+    <body>
+        <div class="box" id="heading">
+            <h1>
+                <%= listTitle %>
+            </h1>
+        </div>
+        <div class="box">
+            <%  for(var i=0;i<newitem.length;i++){%>
+                <div class="item">
+                    <input type="checkbox">
+                    <p>
+                        <%=newitem[i]%>
+                    </p>
+                </div>
+                <% }%>
 
-<body>
-    <div class="box" id="heading">
-        <h1>
-            <%= kindOfDay %>
-        </h1>
-    </div>
-    <div class="box">
-        <%  for(var i=0;i<newitem.length;i++){%>
-            <div class="item">
-                <input type="checkbox">
-                <p>
-                    <%=newitem[i]%>
-                </p>
-            </div>
-            <% }%>
-
-                <form class="item" action="/" method="post">
-                    <input type="text" name="newitem" placeholder="New Item" autocomplete="off"><br>
-                    <button type="submit">+</button>
-                </form>
-    </div>
-
-</body>
-
-</html>
+                    <form class="item" action="/" method="post">
+                        <input type="text" name="newitem" placeholder="New Item" autocomplete="off"><br>
+                        <button type="submit" name="list" value=<%=listTitle%>>+</button>
+                    </form>
+        </div>
+        <%- include("fotter"); -%>
